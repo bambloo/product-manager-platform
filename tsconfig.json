@@ -20,7 +20,8 @@
     "src/**/*.d.ts",
     "src/**/*.vue",
     "vite.config.ts",
-    "node_modules/vuestic-ui"
+    "node_modules/vuestic-ui",
+    "src/vuestic-config"
   ],
   "exclude": ["node_modules/**/*"]
 }
