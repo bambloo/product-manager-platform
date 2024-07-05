@@ -2,7 +2,6 @@
   "name": "product-manager-platform",
   "version": "0.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
@@ -15,10 +14,19 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@gtm-support/vue-gtm": "^3.0.1",
+    "@vuestic/tailwind": "^0.1.5",
+    "@vueuse/core": "^10.11.0",
+    "chart.js": "^4.4.3",
+    "chartjs-chart-geo": "^4.3.1",
+    "epic-spinners": "^2.0.0",
+    "flag-icons": "^7.2.3",
+    "ionicons": "^7.4.0",
     "pinia": "^2.1.7",
     "sass": "^1.77.6",
     "vue": "^3.4.29",
     "vue-chartjs": "^5.3.1",
+    "vue-i18n": "^9.13.1",
     "vue-router": "^4.3.3",
     "vuestic-ui": "^1.9.12"
   },
@@ -34,6 +42,7 @@
     "@vue/eslint-config-typescript": "^13.0.0",
     "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.5.1",
+    "autoprefixer": "^10.4.19",
     "eslint": "^8.57.0",
     "eslint-plugin-playwright": "^1.6.2",
     "eslint-plugin-vue": "^9.23.0",
