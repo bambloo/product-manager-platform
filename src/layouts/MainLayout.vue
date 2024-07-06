@@ -4,6 +4,7 @@ import { useUiStates } from '../stores/ui-states'
 import { storeToRefs } from 'pinia'
 import { Ref, computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { onBeforeRouteUpdate } from 'vue-router'
+import MainNavbar from '../components/navbar/MainNavbar.vue'
 const uiStates = useUiStates()
 const { isSidebarMinimized } = storeToRefs(uiStates)
 
@@ -53,5 +54,6 @@ const onCloseSidebarButtonClick = () => {
       overlay: breakpoints.mdDown && !isSidebarMinimized
     }"
   >
+    <template #top> <MainNavbar :is-mobile="isMobile" /> </template>
   </VaLayout>
 </template>
