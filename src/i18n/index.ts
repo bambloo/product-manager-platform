@@ -22,7 +22,7 @@ Object.entries(fileNameToLocaleModuleDict)
 
 export default createI18n({
   legacy: false,
-  locale: 'gb',
+  locale: navigator.language,
   fallbackLocale: 'gb',
   messages
 })

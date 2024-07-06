@@ -1,4 +1,8 @@
 {
+  "global": {
+    "company": "Shandong Hongda Construction Machinary Group Co., Ltd."
+  },
+  "message": { "back_home": "Visit home page" },
   "auth": {
     "agree": "I agree to",
     "createAccount": "Create account",

@@ -14,6 +14,5 @@ body {
 }
 </style>
 <template>
-  <VaButton>test</VaButton>
   <RouterView />
 </template>

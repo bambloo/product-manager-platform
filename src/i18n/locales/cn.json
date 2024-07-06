@@ -1,4 +1,8 @@
 {
+  "global": {
+    "company": "山东鸿达建工集团有限公司"
+  },
+  "message": { "back_home": "访问主页" },
   "auth": {
     "agree": "我同意",
     "createAccount": "创建账号",
