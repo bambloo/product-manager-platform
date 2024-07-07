@@ -1,0 +1,14 @@
+:root,
+:host {
+  --va-parallax-display: block;
+  --va-parallax-width: auto;
+  --va-parallax-z-index: 0;
+
+  /* Image container */
+  --va-parallax-image-container-contain: strict;
+  --va-parallax-image-container-user-select: none;
+
+  /* Image */
+  --va-parallax-image-will-change: transform;
+  --va-parallax-image-transition: 0.3s opacity linear;
+}

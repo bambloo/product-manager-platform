@@ -1,0 +1,11 @@
+:root,
+:host {
+  --va-split-panel-overflow: auto;
+  --va-split-dragger-display: flex;
+  --va-split-dragger-justify-content: center;
+  --va-split-dragger-align-items: center;
+  --va-split-dragger-overlay-size: 1rem;
+  --va-split-dragging-cursor: grabbing;
+  --va-split-horizontal-dragger-cursor: col-resize;
+  --va-split-vertical-dragger-cursor: row-resize;
+}

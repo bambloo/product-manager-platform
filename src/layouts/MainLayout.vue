@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useBreakpoint } from 'vuestic-ui/web-components'
+import { useBreakpoint } from '../vuestic-ui/main'
 import { useUiStates } from '../stores/ui-states'
 import { storeToRefs } from 'pinia'
 import { Ref, computed, onBeforeUnmount, onMounted, ref } from 'vue'

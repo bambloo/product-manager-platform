@@ -1,0 +1,16 @@
+:root,
+:host {
+  /* Circle */
+  --va-progress-circle-position: relative;
+  --va-progress-circle-overflow: hidden;
+
+  /* Circle Wrapper */
+  --va-progress-circle-width: 80%;
+  --va-progress-circle-height: 80%;
+
+  /* Circle Overlay */
+  --va-progress-circle-overlay-transition: all ease 2s;
+
+  /* Circle Info */
+  --va-progress-circle-font-size: 0.75rem;
+}

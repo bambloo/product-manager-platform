@@ -1,0 +1,17 @@
+@import '../resources/index.scss';
+
+.none {
+  display: none;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.visually-hidden {
+  @include visually-hidden;
+}
+
+.fill-width {
+  width: 100%;
+}

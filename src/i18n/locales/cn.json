@@ -1,6 +1,10 @@
 {
   "global": {
-    "company": "山东鸿达建工集团有限公司"
+    "company": "山东鸿达建工集团有限公司",
+    "tabs": {
+      "about": "关于公司",
+      "products": "产品介绍"
+    }
   },
   "message": { "back_home": "访问主页" },
   "auth": {

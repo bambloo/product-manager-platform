@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import i18n from './i18n'
-import { createVuestic } from 'vuestic-ui'
+import { createVuestic } from './vuestic-ui/main'
 import { createGtm } from '@gtm-support/vue-gtm'
 
 import router from './router'

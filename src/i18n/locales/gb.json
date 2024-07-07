@@ -1,6 +1,10 @@
 {
   "global": {
-    "company": "Shandong Hongda Construction Machinary Group Co., Ltd."
+    "company": "Shandong Hongda Construction Machinary Group Co., Ltd.",
+    "tabs": {
+      "about": "About",
+      "products": "Products"
+    }
   },
   "message": { "back_home": "Visit home page" },
   "auth": {

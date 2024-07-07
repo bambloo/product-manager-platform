@@ -1,0 +1,44 @@
+:root,
+:host {
+  --va-radio-display: inline-flex;
+  --va-radio-cursor: pointer;
+  --va-radio-position: relative;
+  --va-radio-gap: 0.5rem;
+  --va-radio-transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+  --va-radio-disabled-cursor: default;
+  --va-radio-border-color: var(--va-background-border);
+  --va-radio-background: transparent;
+
+  /* Icon */
+  --va-radio-icon-transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+  --va-radio-icon-width: 1.4rem;
+  --va-radio-icon-height: 1.4rem;
+  --va-radio-icon-border-radius: 100%;
+  --va-radio-icon-border: var(--va-background-border) solid var(--va-form-element-border-width);
+
+  /* Dot */
+  --va-radio-dot-transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+  --va-radio-dot-top: 50%;
+  --va-radio-dot-left: 50%;
+  --va-radio-dot-right: 50%;
+  --va-radio-dot-bottom: 50%;
+  --va-radio-dot-border-radius: 100%;
+  --va-radio-dot-background-color: inherit;
+  --va-radio-dot-opacity: 0;
+
+  /* Background */
+  --va-radio-background-transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+  --va-radio-background-top: -0.35rem;
+  --va-radio-background-left: -0.35rem;
+  --va-radio-background-right: -0.35rem;
+  --va-radio-background-bottom: -0.35rem;
+  --va-radio-background-background-color: var(--va-background-element);
+  --va-radio-background-border-radius: 100%;
+  --va-radio-background-z-index: 0;
+  --va-radio-background-opacity: 0;
+
+  /* Text */
+  --va-radio-text-display: inline-flex;
+  --va-radio-text-margin-left: 0.5rem;
+  --va-radio-text-margin-right: 0;
+}

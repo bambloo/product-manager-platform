@@ -1,0 +1,50 @@
+// breakpoints must be always synchronized with breakpoint service defaults
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+) !default;
+
+$grid-columns: 12 !default;
+
+// gutters are depending on the current breakpoint (provided by breakpoint service via --va-media-ratio)
+$grid-gutters: (
+  1: #{calc(var(--va-grid-gutter-base) * 0.25)},
+  2: #{calc(var(--va-grid-gutter-base) * 0.5)},
+  3: #{var(--va-grid-gutter-base)},
+  4: #{calc(var(--va-grid-gutter-base) * 2)},
+  5: #{calc(var(--va-grid-gutter-base) * 3)},
+) !default;
+
+// spacers are used for various paddings and typings to make them consistent, also depending on current breakpoint
+$spacers: (
+  0: 0,
+  1: #{calc(var(--va-grid-spacing-base) * 0.25)},
+  2: #{calc(var(--va-grid-spacing-base) * 0.5)},
+  3: #{var(--va-grid-spacing-base)},
+  4: #{calc(var(--va-grid-spacing-base) * 2)},
+  5: #{calc(var(--va-grid-spacing-base) * 3)},
+);
+
+// xs and sm are full width
+$container-max-widths: (
+  md: map-get($grid-breakpoints, md),
+  lg: map-get($grid-breakpoints, lg),
+  xl: map-get($grid-breakpoints, xl),
+) !default;
+
+$display-breakpoints: (
+  xs-only: 'only screen and (max-width: #{(map-get($grid-breakpoints, sm) - 1)})',
+  sm-only: 'only screen and (min-width: #{map-get($grid-breakpoints, sm)}) and (max-width: #{(map-get($grid-breakpoints, md)  - 1)})',
+  sm-and-down: 'only screen and (max-width: #{(map-get($grid-breakpoints, md) - 1)})',
+  sm-and-up: 'only screen and (min-width: #{map-get($grid-breakpoints, sm)})',
+  md-only: 'only screen and (min-width: #{map-get($grid-breakpoints, md)}) and (max-width: #{(map-get($grid-breakpoints, lg)  - 1)})',
+  md-and-down: 'only screen and (max-width: #{(map-get($grid-breakpoints, lg) - 1)})',
+  md-and-up: 'only screen and (min-width: #{map-get($grid-breakpoints, md)})',
+  lg-only: 'only screen and (min-width: #{map-get($grid-breakpoints, lg)}) and (max-width: #{(map-get($grid-breakpoints, xl) - 1)})',
+  lg-and-down: 'only screen and (max-width: (#{map-get($grid-breakpoints, xl)} - 1))',
+  lg-and-up: 'only screen and (min-width: #{map-get($grid-breakpoints, lg)})',
+  xl-only: 'only screen and (min-width: #{map-get($grid-breakpoints, xl)})',
+) !default;

@@ -1,0 +1,31 @@
+:root,
+:host {
+  --va-progress-bar-width: 100%;
+  --va-progress-bar-position: relative;
+  --va-progress-bar-overflow: hidden;
+  --va-progress-bar-height: 0.5rem;
+  --va-progress-bar-border-radius: 9999999px;
+
+  /* Small */
+  --va-progress-bar-sm-height: 2px;
+
+  /* Large */
+  --va-progress-bar-lg-height: 16px;
+
+  /* Info */
+  --va-progress-bar-info-font-weight: 700;
+  --va-progress-bar-info-text-align: center;
+  --va-progress-bar-info-text-transform: uppercase;
+  --va-progress-bar-info-not-empty-margin-bottom: 0.1rem;
+
+  /* Buffer */
+  --va-progress-bar-buffer-opacity: 0.3;
+  --va-progress-bar-buffer-transition: width ease 2s;
+
+  /* Overlay */
+  --va-progress-bar-transition: width ease 2s;
+  --va-progress-bar-letter-spacing: 0.6px;
+  --va-progress-bar-line-height: 1;
+  --va-progress-bar-font-size: 0.8em;
+  --va-progress-bar-font-weight: 700;
+}

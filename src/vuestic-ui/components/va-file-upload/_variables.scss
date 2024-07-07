@@ -1,0 +1,15 @@
+:root,
+:host {
+  --va-file-upload-position: relative;
+  --va-file-upload-margin: 0.5rem 0;
+  --va-file-upload-list-margin-top: 1rem;
+  --va-file-upload-dropzone-border-radius: 0.375rem;
+  --va-file-upload-dropzone-cursor: pointer;
+  --va-file-upload-dropzone-text-padding-sm: 0 0 1rem;
+  --va-file-upload-dropzone-field-padding: 1.5rem 2rem;
+  --va-file-upload-dropzone-field-padding-sm: 1.5rem 1rem;
+  --va-file-upload-dropzone-field-button-margin: 0;
+  --va-file-upload-dropzone-field-button-z-index: 10;
+  --va-file-upload-dropzone-field-text-pr: 10px;
+  --va-file-upload-dropzone-list-padding: 0 2rem 1rem;
+}
