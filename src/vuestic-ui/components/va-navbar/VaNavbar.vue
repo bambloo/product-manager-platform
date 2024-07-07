@@ -1,29 +1,22 @@
 <template>
-  <header
-    ref="scrollRoot"
-    class="va-navbar"
-    :class="bemClasses"
-    :style="computedStyle"
-  >
-    <slot>
-      <div class="va-navbar__left">
-        <slot name="left" />
-      </div>
+  <header ref="scrollRoot" class="va-navbar" :class="bemClasses" :style="computedStyle">
+    <div class="va-navbar-container">
+      <slot>
+        <div class="va-navbar-container__left">
+          <slot name="left" />
+        </div>
 
-      <div class="va-navbar__center">
-        <slot name="center" />
-      </div>
+        <div class="va-navbar-container__center">
+          <slot name="center" />
+        </div>
 
-      <div class="va-navbar__right">
-        <slot name="right" />
-      </div>
-    </slot>
+        <div class="va-navbar-container__right">
+          <slot name="right" />
+        </div>
+      </slot>
 
-    <div
-      v-if="shape"
-      class="va-navbar__background-shape"
-      :style="shapeStyleComputed"
-    />
+      <div v-if="shape" class="va-navbar__background-shape" :style="shapeStyleComputed" />
+    </div>
   </header>
 </template>
 
@@ -37,11 +30,11 @@ import {
   useTextColor,
   useFixedBarProps,
   useComponentPresetProp,
-  useBem,
+  useBem
 } from '../../composables'
 
 defineOptions({
-  name: 'VaNavbar',
+  name: 'VaNavbar'
 })
 
 const props = defineProps({
@@ -51,7 +44,7 @@ const props = defineProps({
   textColor: { type: String },
   shape: { type: Boolean, default: false },
   shadowed: { type: Boolean, default: false },
-  bordered: { type: Boolean, default: false },
+  bordered: { type: Boolean, default: false }
 })
 
 const { scrollRoot, isScrolledDown } = setupScroll(props.fixed)
@@ -62,29 +55,29 @@ const color = computed(() => getColor(props.color))
 const { textColorComputed } = useTextColor(color)
 
 const shapeStyleComputed = computed(() => ({
-  borderTopColor: shiftHSLAColor(color.value, { h: -1, s: -11, l: 10 }),
+  borderTopColor: shiftHSLAColor(color.value, { h: -1, s: -11, l: 10 })
 }))
 
 const computedStyle = computed(() => ({
   ...fixedBarStyleComputed.value,
   backgroundColor: color.value,
   color: textColorComputed.value,
-  fill: textColorComputed.value,
+  fill: textColorComputed.value
 }))
 
 const bemClasses = useBem('va-navbar', () => ({
   shadowed: props.shadowed,
-  bordered: props.bordered,
+  bordered: props.bordered
 }))
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+@import '../../styles/resources';
+@import 'variables';
 
 .va-navbar {
-  display: grid;
-  grid-template: "left center right" / 1fr auto 1fr;
+  display: flex;
+  justify-content: center;
   align-items: center;
   transition: var(--va-navbar-transition);
   position: var(--va-navbar-position);
@@ -94,7 +87,45 @@ const bemClasses = useBem('va-navbar', () => ({
   top: 0;
   left: 0;
   width: 100%;
-  min-width: 100%;
+
+  // min-width: 100%;
+  &__background-shape {
+    transition: var(--va-navbar-shape-transition);
+    width: var(--va-navbar-shape-width);
+    max-width: var(--va-navbar-shape-max-width);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    margin: auto;
+    border-top: var(--va-navbar-height) solid var(--va-navbar-shape-bg);
+    border-left: var(--va-navbar-shape-border-left);
+    border-right: var(--va-navbar-shape-border-right);
+    height: 0;
+  }
+
+  @include media-breakpoint-down(sm) {
+    &__background-shape {
+      display: none;
+    }
+  }
+
+  &--shadowed {
+    box-shadow: 0 2px 8px var(--va-shadow);
+  }
+
+  &--bordered {
+    border-bottom: var(--va-background-border);
+  }
+}
+
+.va-navbar-container {
+  display: grid;
+  grid-template: 'left center right' / 1fr auto 1fr;
+
+  width: 100%;
+  max-width: var(--va-max-screen-width);
+
   z-index: var(--va-navbar-z-index);
 
   &__left {
@@ -141,35 +172,6 @@ const bemClasses = useBem('va-navbar', () => ({
         margin-right: 0;
       }
     }
-  }
-
-  &__background-shape {
-    transition: var(--va-navbar-shape-transition);
-    width: var(--va-navbar-shape-width);
-    max-width: var(--va-navbar-shape-max-width);
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    margin: auto;
-    border-top: var(--va-navbar-height) solid var(--va-navbar-shape-bg);
-    border-left: var(--va-navbar-shape-border-left);
-    border-right: var(--va-navbar-shape-border-right);
-    height: 0;
-  }
-
-  @include media-breakpoint-down(sm) {
-    &__background-shape {
-      display: none;
-    }
-  }
-
-  &--shadowed {
-    box-shadow: 0 2px 8px var(--va-shadow);
-  }
-
-  &--bordered {
-    border-bottom: var(--va-background-border);
   }
 }
 </style>
