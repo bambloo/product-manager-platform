@@ -10,6 +10,7 @@ export default defineConfig({
     sourcemap: true
   },
   plugins: [vue(), vueJsx(), vueDevTools()],
+  root: './client',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))

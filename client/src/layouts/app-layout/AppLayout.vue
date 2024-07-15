@@ -2,8 +2,8 @@
 import { useBreakpoint, useToast } from '../../vuestic-ui/main'
 import { useUiStates } from '../../stores/ui-states'
 import { storeToRefs } from 'pinia'
-import { Ref, computed, onBeforeUnmount, onMounted, ref } from 'vue'
-import { onBeforeRouteUpdate } from 'vue-router'
+import { Ref, computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { RouterLink, onBeforeRouteUpdate, useRoute } from 'vue-router'
 import CommonLayout from '../common-layout/CommonLayout.vue'
 import CommonLayoutTopLine from '../common-layout/CommonLayoutTopLine.vue'
 import MainNavbar from '../../components/navbar/MainNavbar.vue'
@@ -19,6 +19,8 @@ const sidebarWidth = ref('16rem')
 const sidebarMinimizedWidth: Ref<string | undefined> = ref(undefined)
 const isMobile = ref(false)
 const isTablet = ref(false)
+
+const route = useRoute()
 
 const isReady = ref(false)
 
@@ -42,6 +44,7 @@ function loadColumns() {
     let data = packet.data
     columns.value = data
 
+    console.log(route.path)
     column.value = columns.value[0].name
     isReady.value = true
   })
@@ -101,7 +104,12 @@ const contentStyle = computed(() => {
       <CommonLayoutTopLine>
         <VaTabs v-model="column" class="tabs">
           <template #tabs>
-            <VaTab v-for="column in columns" :key="column" :to="{ path: `/home/${column.name}` }">
+            <VaTab
+              v-for="column in columns"
+              :key="column.name"
+              :name="column.name"
+              :to="{ path: `/home/${column.name}` }"
+            >
               {{ column.label }}
             </VaTab>
           </template>
