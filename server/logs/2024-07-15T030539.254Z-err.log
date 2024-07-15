@@ -1,0 +1,23 @@
+Mon, 15 Jul 2024 03:05:39 GMT body-parser deprecated undefined extended: provide extended option at src\app.ts:22:39
+[2024-07-15T03:05:45.158Z] MongoServerError: not authorized on test to execute command { find: "columns", filter: {}, lsid: { id: UUID("4710f885-dba8-40a8-bf6c-598213c63e3f") }, $db: "test" }
+    at Connection.sendCommand (S:\vue\product-manager-platform\server\node_modules\mongodb\src\cmap\connection.ts:517:17)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Connection.command (S:\vue\product-manager-platform\server\node_modules\mongodb\src\cmap\connection.ts:585:22)
+    at async Server.command (S:\vue\product-manager-platform\server\node_modules\mongodb\src\sdam\server.ts:327:21)
+    at async FindOperation.execute (S:\vue\product-manager-platform\server\node_modules\mongodb\src\operations\find.ts:112:12)
+    at async executeOperation (S:\vue\product-manager-platform\server\node_modules\mongodb\src\operations\execute_operation.ts:183:12)
+    at async FindCursor._initialize (S:\vue\product-manager-platform\server\node_modules\mongodb\src\cursor\find_cursor.ts:72:22)
+    at async FindCursor.cursorInit (S:\vue\product-manager-platform\server\node_modules\mongodb\src\cursor\abstract_cursor.ts:684:21)
+    at async FindCursor.fetchBatch (S:\vue\product-manager-platform\server\node_modules\mongodb\src\cursor\abstract_cursor.ts:720:7)
+    at async FindCursor.next (S:\vue\product-manager-platform\server\node_modules\mongodb\src\cursor\abstract_cursor.ts:398:7) {
+  errorResponse: {
+    ok: 0,
+    errmsg: 'not authorized on test to execute command { find: "columns", filter: {}, lsid: { id: UUID("4710f885-dba8-40a8-bf6c-598213c63e3f") }, $db: "test" }',
+    code: 13,
+    codeName: 'Unauthorized'
+  },
+  ok: 0,
+  code: 13,
+  codeName: 'Unauthorized',
+  [Symbol(errorLabels)]: Set(0) {}
+}
