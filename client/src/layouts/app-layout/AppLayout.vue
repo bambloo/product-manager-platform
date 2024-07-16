@@ -2,8 +2,8 @@
 import { useBreakpoint, useToast } from '../../vuestic-ui/main'
 import { useUiStates } from '../../stores/ui-states'
 import { storeToRefs } from 'pinia'
-import { Ref, computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
-import { RouterLink, onBeforeRouteUpdate, useRoute } from 'vue-router'
+import { Ref, computed, onBeforeUnmount, onMounted, ref } from 'vue'
+import { onBeforeRouteUpdate, useRoute } from 'vue-router'
 import CommonLayout from '../common-layout/CommonLayout.vue'
 import CommonLayoutTopLine from '../common-layout/CommonLayoutTopLine.vue'
 import MainNavbar from '../../components/navbar/MainNavbar.vue'
@@ -11,7 +11,7 @@ import { post } from '../../scripts/request'
 
 const uiStates = useUiStates()
 const { isSidebarMinimized } = storeToRefs(uiStates)
-const { init, notify, close, closeAll } = useToast()
+const { init } = useToast()
 
 const breakpoints = useBreakpoint()
 
@@ -44,8 +44,18 @@ function loadColumns() {
     let data = packet.data
     columns.value = data
 
+    const column_set = new Set()
+    data.forEach((element) => {
+      column_set.add(element.name)
+    })
+
     console.log(route.path)
-    column.value = columns.value[0].name
+    const column_in_route = route.path.replace('/home/', '').replace('/', '').toLowerCase()
+    if (column_in_route.length && column_set.has(column_in_route)) {
+      column.value = column_in_route
+    } else {
+      column.value = columns.value[0].name
+    }
     isReady.value = true
   })
 }
