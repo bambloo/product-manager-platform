@@ -2,6 +2,7 @@ import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router'
 import MainLayout from './layouts/app-layout/HomeLayout.vue'
 import AdminLayout from './layouts/app-layout/AdminLayout.vue'
 import LoginLayout from './layouts/app-layout/LoginLayout.vue'
+import ColumnsView from './views/columns/ColumnsView.vue'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -15,8 +16,16 @@ const routes: RouteRecordRaw[] = [
   },
   {
     name: 'admin',
-    path: '/:pathmatch(admin|admin/.*)*',
-    component: AdminLayout
+    path: '/admin',
+    component: AdminLayout,
+    redirect: { path: '/admin/columns' },
+    children: [
+      {
+        name: 'columns',
+        path: 'columns',
+        component: ColumnsView
+      }
+    ]
   },
   {
     name: 'login',

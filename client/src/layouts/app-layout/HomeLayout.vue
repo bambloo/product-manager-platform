@@ -6,7 +6,7 @@ import { Ref, computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { onBeforeRouteUpdate, useRoute } from 'vue-router'
 import CommonLayout from '../common-layout/CommonLayout.vue'
 import CommonLayoutTopLine from '../common-layout/CommonLayoutTopLine.vue'
-import MainNavbar from '../../components/navbar/MainNavbar.vue'
+import HomeNavbar from '../../components/navbar/HomeNavbar.vue'
 import { post } from '../../scripts/request'
 
 const uiStates = useUiStates()
@@ -121,7 +121,7 @@ const contentStyle = computed(() => {
 <template>
   <CommonLayout v-if="isReady">
     <template #top>
-      <MainNavbar :is-mobile="isMobile" />
+      <HomeNavbar :is-mobile="isMobile" />
       <CommonLayoutTopLine>
         <VaTabs v-model="current_column" class="tabs">
           <template #tabs>
