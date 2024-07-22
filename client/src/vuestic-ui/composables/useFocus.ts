@@ -1,5 +1,5 @@
-import { unwrapEl } from './../utils/unwrapEl'
-import { focusElement, blurElement } from './../utils/focus'
+import { unwrapEl } from '../utils/unwrapEl'
+import { focusElement, blurElement } from '../utils/focus'
 import { ref, onMounted, onBeforeUnmount, Ref, Component, computed } from 'vue'
 import { useEvent } from './useEvent'
 import { useActiveElement } from './useActiveElement'
@@ -7,15 +7,19 @@ import { isNilValue } from '../utils/isNilValue'
 
 export const useFocusEmits = ['focus', 'blur'] as const
 
-export function useFocus (
+export function useFocus(
   el?: Ref<HTMLElement | null | undefined | Component>,
-  emit?: (event: 'focus' | 'blur', e?: Event) => void,
+  emit?: (event: 'focus' | 'blur', e?: Event) => void
 ) {
   const activeElement = useActiveElement()
   const isFocused = computed({
     get: () => {
-      if (isNilValue(activeElement.value)) { return false }
-      if (isNilValue(el?.value)) { return false }
+      if (isNilValue(activeElement.value)) {
+        return false
+      }
+      if (isNilValue(el?.value)) {
+        return false
+      }
 
       return activeElement.value === el?.value
     },
@@ -25,7 +29,7 @@ export function useFocus (
       } else {
         blur()
       }
-    },
+    }
   })
 
   const onFocus = (e?: Event) => {
@@ -37,12 +41,16 @@ export function useFocus (
   }
 
   const focus = (): void => {
-    if (!el?.value) { return }
+    if (!el?.value) {
+      return
+    }
     focusElement(unwrapEl(el?.value))
   }
 
   const blur = (): void => {
-    if (!el?.value) { return }
+    if (!el?.value) {
+      return
+    }
     blurElement(unwrapEl(el?.value))
   }
 
@@ -54,6 +62,6 @@ export function useFocus (
     onFocus,
     onBlur,
     focus,
-    blur,
+    blur
   }
 }

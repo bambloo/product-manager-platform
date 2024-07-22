@@ -1,5 +1,7 @@
 import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router'
-import MainLayout from './layouts/app-layout/AppLayout.vue'
+import MainLayout from './layouts/app-layout/HomeLayout.vue'
+import AdminLayout from './layouts/app-layout/AdminLayout.vue'
+import LoginLayout from './layouts/app-layout/LoginLayout.vue'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -8,8 +10,18 @@ const routes: RouteRecordRaw[] = [
   },
   {
     name: 'home',
-    path: '/:pathMatch(home\\/.*)*',
+    path: '/:pathmatch(home|home/.*)*',
     component: MainLayout
+  },
+  {
+    name: 'admin',
+    path: '/:pathmatch(admin|admin/.*)*',
+    component: AdminLayout
+  },
+  {
+    name: 'login',
+    path: '/admin/login',
+    component: LoginLayout
   }
 ]
 

@@ -1,12 +1,12 @@
 import { ref, reactive, watch, PropType, ShallowRef, ExtractPropTypes, watchEffect } from 'vue'
 
-import { useEvent } from './'
+import { useEvent } from '.'
 
 type SwipeDirection = 'up' | 'down' | 'left' | 'right' | ''
 type SwipePosition = 'start' | 'end'
 type SwipeCoordinates = Record<'x' | 'y', number>
 type SwipePath = Record<SwipePosition, SwipeCoordinates>
-export type SwipeState = { direction: SwipeDirection, duration: number }
+export type SwipeState = { direction: SwipeDirection; duration: number }
 
 type AllowedSwipeDirection = 'all' | 'horizontal' | 'vertical' | SwipeDirection
 
@@ -15,7 +15,7 @@ const touchEvents = ['touchstart', 'touchmove']
 
 const commonAllowedDirections = {
   vertical: ['', 'all', 'vertical'],
-  horizontal: ['', 'all', 'horizontal'],
+  horizontal: ['', 'all', 'horizontal']
 }
 const verticalSpecificAllowedDirections = [...commonAllowedDirections.vertical, 'up', 'down']
 const horizontalSpecificAllowedDirections = [...commonAllowedDirections.horizontal, 'left', 'right']
@@ -28,7 +28,7 @@ const horizontalSpecificAllowedDirections = [...commonAllowedDirections.horizont
 export const useSwipeProps = {
   swipable: { type: Boolean, default: false },
   swipeDistance: { type: Number, default: 75 },
-  swipeDirection: { type: String as PropType<AllowedSwipeDirection>, default: 'all' },
+  swipeDirection: { type: String as PropType<AllowedSwipeDirection>, default: 'all' }
 }
 
 /**
@@ -45,26 +45,30 @@ export const useSwipeProps = {
 export const useSwipe = (
   props: ExtractPropTypes<typeof useSwipeProps>,
   container: ShallowRef<HTMLElement | undefined>,
-  cb: (state: SwipeState) => void,
+  cb: (state: SwipeState) => void
 ) => {
   const swipeStarted = ref(false)
   const swipePath = reactive({
     start: { x: 0, y: 0 },
-    end: { x: 0, y: 0 },
+    end: { x: 0, y: 0 }
   }) as SwipePath
   const swipeDuration = reactive({
     start: 0,
-    end: 0,
+    end: 0
   })
 
   const setState = (e: TouchEvent | MouseEvent, type: SwipePosition) => {
     let event: MouseEvent | Touch | undefined
-    if (mouseEvents.includes(e.type)) { event = e as MouseEvent }
+    if (mouseEvents.includes(e.type)) {
+      event = e as MouseEvent
+    }
     if (touchEvents.includes(e.type)) {
       const touchEvent = e as TouchEvent
       event = touchEvent.changedTouches[touchEvent.changedTouches.length - 1]
     }
-    if (!event) { return }
+    if (!event) {
+      return
+    }
 
     swipePath[type].x = event.pageX
     swipePath[type].y = event.pageY
@@ -72,18 +76,22 @@ export const useSwipe = (
   }
 
   const onSwipeStart = (e: TouchEvent | MouseEvent) => {
-    if (!props.swipable || swipeStarted.value) { return }
+    if (!props.swipable || swipeStarted.value) {
+      return
+    }
     swipeStarted.value = true
     setState(e, 'start')
   }
 
   const onSwipeMove = (e: TouchEvent | MouseEvent) => {
-    if (!swipeStarted.value) { return }
+    if (!swipeStarted.value) {
+      return
+    }
     setState(e, 'end')
   }
 
   const resetSwipe = () => {
-    (['start', 'end'] as SwipePosition[]).forEach((type) => {
+    ;(['start', 'end'] as SwipePosition[]).forEach((type) => {
       swipePath[type].x = 0
       swipePath[type].y = 0
       swipeDuration[type] = 0
@@ -93,7 +101,7 @@ export const useSwipe = (
 
   const isSwipeAllowed = reactive({
     vertical: false,
-    horizontal: false,
+    horizontal: false
   })
   watchEffect(() => {
     isSwipeAllowed.horizontal = horizontalSpecificAllowedDirections.includes(props.swipeDirection)
@@ -102,34 +110,45 @@ export const useSwipe = (
 
   const calcDistance = (axis: 'x' | 'y') => {
     return isSwipeAllowed[axis === 'x' ? 'horizontal' : 'vertical'] &&
-    swipePath.start[axis] && swipePath.end[axis]
+      swipePath.start[axis] &&
+      swipePath.end[axis]
       ? Math.trunc(swipePath.start[axis] - swipePath.end[axis])
       : 0
   }
 
   const getAcceptableValue = (direction: 'horizontal' | 'vertical', result: SwipeDirection) => {
-    return result === props.swipeDirection || commonAllowedDirections[direction].includes(props.swipeDirection) ? result : ''
+    return result === props.swipeDirection ||
+      commonAllowedDirections[direction].includes(props.swipeDirection)
+      ? result
+      : ''
   }
 
   const swipeState = reactive({ direction: '', duration: 0 }) as SwipeState
-  watch(swipePath, () => {
-    const xDistance = calcDistance('x')
-    const yDistance = calcDistance('y')
+  watch(
+    swipePath,
+    () => {
+      const xDistance = calcDistance('x')
+      const yDistance = calcDistance('y')
 
-    if ((xDistance || yDistance) && [xDistance, yDistance].some((el) => Math.abs(el) >= props.swipeDistance)) {
-      if (Math.abs(xDistance) >= Math.abs(yDistance) && isSwipeAllowed.horizontal) {
-        const result = xDistance > 0 ? 'left' : 'right'
-        swipeState.direction = getAcceptableValue('horizontal', result)
-      } else if (Math.abs(xDistance) < Math.abs(yDistance) && isSwipeAllowed.vertical) {
-        const result = yDistance > 0 ? 'down' : 'up'
-        swipeState.direction = getAcceptableValue('vertical', result)
+      if (
+        (xDistance || yDistance) &&
+        [xDistance, yDistance].some((el) => Math.abs(el) >= props.swipeDistance)
+      ) {
+        if (Math.abs(xDistance) >= Math.abs(yDistance) && isSwipeAllowed.horizontal) {
+          const result = xDistance > 0 ? 'left' : 'right'
+          swipeState.direction = getAcceptableValue('horizontal', result)
+        } else if (Math.abs(xDistance) < Math.abs(yDistance) && isSwipeAllowed.vertical) {
+          const result = yDistance > 0 ? 'down' : 'up'
+          swipeState.direction = getAcceptableValue('vertical', result)
+        }
+
+        swipeState.duration = swipeDuration.end - swipeDuration.start
+
+        resetSwipe()
       }
-
-      swipeState.duration = swipeDuration.end - swipeDuration.start
-
-      resetSwipe()
-    }
-  }, { deep: true })
+    },
+    { deep: true }
+  )
 
   watch(swipeState, () => cb(swipeState), { deep: true })
 

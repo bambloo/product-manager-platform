@@ -8,7 +8,7 @@ const textSizes = {
 
 // eslint-disable-next-line no-undef
 module.exports = {
-  content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+  content: ['./index.html', './client/src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
     extend: {
       fontSize: {

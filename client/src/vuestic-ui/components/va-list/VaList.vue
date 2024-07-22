@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="va-list"
-    role="list"
-    :class="computedClass"
-  >
+  <div class="va-list" role="list" :class="computedClass">
     <slot />
   </div>
 </template>
@@ -13,20 +9,20 @@ import { computed } from 'vue'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 defineOptions({
-  name: 'VaList',
+  name: 'VaList'
 })
 
 const props = defineProps({
   ...useComponentPresetProp,
-  fit: { type: Boolean, default: false },
+  fit: { type: Boolean, default: false }
 })
 
 const computedClass = computed(() => ({ 'va-list--fit': props.fit }))
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+@import '../../styles/resources';
+@import 'variables';
 
 .va-list {
   width: var(--va-list-width);

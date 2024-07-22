@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import type { CssColor } from '../composables/useColors'
+import type { CssColor } from './useColors'
 import { useTextColor } from './useTextColor'
 
 const isRefString = (r: any): r is Ref<string> => typeof r?.value === 'string'

@@ -1,19 +1,26 @@
 import { ref, Ref, watch, onMounted } from 'vue'
 
-import { useHTMLElement, useEvent } from './'
+import { useHTMLElement, useEvent } from '.'
 
-export function useHover (el?: Ref<HTMLElement | null | undefined>, disabled?: Ref<boolean>) {
+export function useHover(el?: Ref<HTMLElement | null | undefined>, disabled?: Ref<boolean>) {
   const isHovered = ref(false)
 
   const onMouseEnter = () => {
-    if (disabled?.value) { return }
+    if (disabled?.value) {
+      return
+    }
     isHovered.value = true
   }
-  const onMouseLeave = () => { isHovered.value = false }
+  const onMouseLeave = () => {
+    isHovered.value = false
+  }
 
-  disabled && watch(disabled, (v) => {
-    if (v) { isHovered.value = false }
-  })
+  disabled &&
+    watch(disabled, (v) => {
+      if (v) {
+        isHovered.value = false
+      }
+    })
 
   const target = useHTMLElement(el as Ref<HTMLElement>)
 

@@ -1,14 +1,14 @@
 import { reactive, computed, watch } from 'vue'
 
-import { useEvent } from './'
+import { useEvent } from '.'
 import { isClient } from '../utils/ssr'
 
 type WindowSizes = Record<'width' | 'height', number | undefined>
 
-export function useWindowSize () {
+export function useWindowSize() {
   const windowSizes = reactive<WindowSizes>({
     width: undefined,
-    height: undefined,
+    height: undefined
   })
 
   const setCurrentWindowSizes = () => {
@@ -17,10 +17,16 @@ export function useWindowSize () {
   }
 
   const isMounted = computed(isClient)
-  watch(isMounted, (newValue) => {
-    if (!newValue) { return }
-    setCurrentWindowSizes()
-  }, { immediate: true })
+  watch(
+    isMounted,
+    (newValue) => {
+      if (!newValue) {
+        return
+      }
+      setCurrentWindowSizes()
+    },
+    { immediate: true }
+  )
   useEvent('resize', setCurrentWindowSizes, true)
 
   return { windowSizes }

@@ -30,7 +30,7 @@ interface Column {
 }
 
 const columns: Ref<Column[]> = ref([])
-const column: Ref<string> = ref('')
+const current_column: Ref<string> = ref('')
 
 const onResize = () => {
   isSidebarMinimized.value = breakpoints.mdDown
@@ -39,9 +39,10 @@ const onResize = () => {
   sidebarMinimizedWidth.value = isMobile.value ? '0' : '4.5rem'
   sidebarWidth.value = isTablet.value ? '100 %' : '16rem'
 }
+
 function loadColumns() {
   return post('/wpi/column/list', {}).then((packet) => {
-    let data = packet.data
+    let data: Column[] = packet.data
     columns.value = data
 
     const column_set = new Set()
@@ -52,11 +53,16 @@ function loadColumns() {
     console.log(route.path)
     const column_in_route = route.path.replace('/home/', '').replace('/', '').toLowerCase()
     if (column_in_route.length && column_set.has(column_in_route)) {
-      column.value = column_in_route
+      current_column.value = column_in_route
     } else {
-      column.value = columns.value[0].name
+      current_column.value = columns.value[0].name
     }
-    isReady.value = true
+  })
+}
+
+function loadMenus() {
+  return post('/wpi/menu/list', { column: current_column.value }).then((packet) => {
+    console.log(packet)
   })
 }
 
@@ -71,7 +77,12 @@ onMounted(() => {
     })
     event.preventDefault()
   })
-  Promise.resolve().then(() => loadColumns())
+  Promise.resolve()
+    .then(() => loadColumns())
+    .then(() => loadMenus())
+    .then(() => {
+      isReady.value = true
+    })
 })
 
 onBeforeUnmount(() => {
@@ -112,7 +123,7 @@ const contentStyle = computed(() => {
     <template #top>
       <MainNavbar :is-mobile="isMobile" />
       <CommonLayoutTopLine>
-        <VaTabs v-model="column" class="tabs">
+        <VaTabs v-model="current_column" class="tabs">
           <template #tabs>
             <VaTab
               v-for="column in columns"

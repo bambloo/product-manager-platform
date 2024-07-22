@@ -1,4 +1,4 @@
-import { camelCaseToKebabCase } from './../../utils/text-case'
+import { camelCaseToKebabCase } from '../../utils/text-case'
 import { defineCustomElement } from 'vue'
 import { type VuesticComponent } from '../vue-plugin/types/index'
 
@@ -12,7 +12,7 @@ const componentsOrder = [
   'VaAccordion',
   'VaFileUpload',
   'VaSidebar',
-  'VaTabs',
+  'VaTabs'
 ]
 
 /**
@@ -47,7 +47,7 @@ export const registerVuesticWebComponentsEssential = (options: {
 }
 ```
    */
-  css?: string,
+  css?: string
 
   /**
    * Vuestic Component that must be registered as Custom Elements.
@@ -58,8 +58,7 @@ export const registerVuesticWebComponentsEssential = (options: {
 }) => {
   const { css, components } = options
 
-  Object
-    .entries(components)
+  Object.entries(components)
     // Re-order components, so components which provides something always registered first
     .sort(([nameA], [nameB]) => {
       if (!componentsOrder.includes(nameA) && !componentsOrder.includes(nameB)) {
@@ -69,8 +68,12 @@ export const registerVuesticWebComponentsEssential = (options: {
       let indexA = componentsOrder.indexOf(nameA)
       let indexB = componentsOrder.indexOf(nameB)
       // If component is unordered, this means that it should be after ordered components
-      if (indexA === -1) { indexA = Number.MAX_SAFE_INTEGER }
-      if (indexB === -1) { indexB = Number.MAX_SAFE_INTEGER }
+      if (indexA === -1) {
+        indexA = Number.MAX_SAFE_INTEGER
+      }
+      if (indexB === -1) {
+        indexB = Number.MAX_SAFE_INTEGER
+      }
 
       return indexA - indexB
     })
@@ -78,7 +81,9 @@ export const registerVuesticWebComponentsEssential = (options: {
       const customElement = defineCustomElement(component as any)
 
       // Add custom CSS to component's Shadow DOM
-      if (css && 'styles' in component) { component.styles.push(css) }
+      if (css && 'styles' in component) {
+        component.styles.push(css)
+      }
 
       customElements.define(`${camelCaseToKebabCase(name)}`, customElement)
     })

@@ -2,12 +2,12 @@ import { ColumnDesc, ColumnUri } from '../entity/column'
 import { Mutex } from '../util/mutex'
 import { BaseModel } from './base'
 
-export class ColumnModel extends BaseModel<ColumnUri, ColumnDesc> {
-  private static global = new ColumnModel('columns', ['name'])
+export class MenuModel extends BaseModel<ColumnUri, ColumnDesc> {
+  private static global = new MenuModel('menus  ', ['name'])
   // private static inited = false
   // private static mutex = new Mutex
 
-  static instance(): Promise<ColumnModel> {
+  static instance(): Promise<MenuModel> {
     return Promise.resolve(this.global)
     //     return new Promise((resolve, reject) => {
     //         if (this.inited) {

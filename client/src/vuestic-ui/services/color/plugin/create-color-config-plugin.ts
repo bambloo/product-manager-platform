@@ -1,5 +1,5 @@
-import { PartialGlobalConfig } from './../../global-config/types'
-import { ColorVariables } from './../types'
+import { PartialGlobalConfig } from '../../global-config/types'
+import { ColorVariables } from '../types'
 import { App, watch, computed, onMounted } from 'vue'
 import { isServer } from '../../../utils/ssr'
 import { cssVariableName } from '../utils'
@@ -21,20 +21,35 @@ const STYLE_ROOT_ATTR = 'data-va-app'
 const getStyleElementId = (id: string | number) => `va-color-variables-${id}`
 
 export const createColorConfigPlugin = (app: App, config?: PartialGlobalConfig) => {
-  const { colors: configColors, getTextColor, getColor, currentPresetName, applyPreset } = useColors()
+  const {
+    colors: configColors,
+    getTextColor,
+    getColor,
+    currentPresetName,
+    applyPreset
+  } = useColors()
 
   /** Renders CSS variables string. Use this in SSR mode */
   const renderCSSVariables = (colors: ColorVariables | undefined = configColors) => {
-    if (!colors) { return }
+    if (!colors) {
+      return
+    }
 
     const colorNames = Object.keys(colors)
-    const renderedColors = colorNames.map((key) => `${cssVariableName(key)}: ${colors[key]}`).join(';')
-    const renderedOnColors = colorNames.map((key) => `${cssVariableName(`on-${key}`)}: ${getColor(getTextColor(colors[key]))}`).join(';')
+    const renderedColors = colorNames
+      .map((key) => `${cssVariableName(key)}: ${colors[key]}`)
+      .join(';')
+    const renderedOnColors = colorNames
+      .map((key) => `${cssVariableName(`on-${key}`)}: ${getColor(getTextColor(colors[key]))}`)
+      .join(';')
 
     return `${renderedColors};${renderedOnColors}`
   }
 
-  const renderCSSVariablesStyleContent = (colors: ColorVariables = configColors, selector = ':root, :host') => {
+  const renderCSSVariablesStyleContent = (
+    colors: ColorVariables = configColors,
+    selector = ':root, :host'
+  ) => {
     const colorNames = Object.keys(colors)
 
     let result = `${selector} {
@@ -56,14 +71,16 @@ export const createColorConfigPlugin = (app: App, config?: PartialGlobalConfig) 
   const stylesRootSelector = computed(() => ':root, :host') // `[${STYLE_ROOT_ATTR}="${uniqueId.value}"]`
 
   const updateColors = (newValue: ColorVariables | undefined) => {
-    if (!newValue || isServer()) { return }
+    if (!newValue || isServer()) {
+      return
+    }
 
     const styleContent = renderCSSVariablesStyleContent(newValue, stylesRootSelector.value)
 
     addOrUpdateStyleElement(getStyleElementId(uniqueId.value), () => styleContent)
   }
 
-  function getAppStylesRootAttribute () {
+  function getAppStylesRootAttribute() {
     return { [STYLE_ROOT_ATTR]: uniqueId.value }
   }
 
@@ -85,9 +102,13 @@ export const createColorConfigPlugin = (app: App, config?: PartialGlobalConfig) 
     return result
   }
 
-  watch(configColors, (newValue) => {
-    updateColors(newValue)
-  }, { immediate: true, deep: true })
+  watch(
+    configColors,
+    (newValue) => {
+      updateColors(newValue)
+    },
+    { immediate: true, deep: true }
+  )
 
   return {
     colors: configColors,
@@ -95,6 +116,6 @@ export const createColorConfigPlugin = (app: App, config?: PartialGlobalConfig) 
     getAppStylesRootAttribute,
     renderCSSVariables,
     updateColors,
-    renderCSSVariablesStyleContent,
+    renderCSSVariablesStyleContent
   }
 }
